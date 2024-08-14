@@ -7,7 +7,7 @@ import Loader from './components/Loader/Loader';
 import ImageModal from './components/ImageModal/ImageModal';
 import ErrorMessage from './components/ErrorMessage/ErrorMessage';
 import { Toaster } from 'react-hot-toast';
-import LoadMoreBtn from './LoadMoreBtn/LoadMoreBtn';
+import LoadMoreBtn from './components/LoadMoreBtn/LoadMoreBtn';
 
 
 function App() {
@@ -53,17 +53,10 @@ function App() {
     fetchImagesFromAPI();
   }, [query, page]);
 
-  const handleChange = (event) => {
-    setQuery(event.target.value);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (query.trim()) {
+  const handleSubmit = (newQuery) => {
+      setQuery(newQuery);
+      setPage(1)
       setImages([]);
-      setPage(1); 
-      setQuery(query.trim());
-    }
   };
 
   const loadMoreImages = () => {
@@ -81,7 +74,7 @@ function App() {
   return (
     <>
       <Section>
-        <SearchBar onSearch={setQuery} onSubmit={handleSubmit} onChange={handleChange} />
+        <SearchBar onSubmit={handleSubmit} />
       </Section>
       <Section>
         {(isLoading || isLoadingMore) && <Loader />}

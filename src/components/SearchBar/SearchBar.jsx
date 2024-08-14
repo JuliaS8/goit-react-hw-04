@@ -4,7 +4,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import toast from 'react-hot-toast';
 
-const SearchBar = ({ onSearch }) => {
+const SearchBar = ({ onSubmit }) => {
   const formik = useFormik({
     initialValues: {
       query: ''
@@ -14,7 +14,7 @@ const SearchBar = ({ onSearch }) => {
     }),
     onSubmit: (values) => {
       if (values.query.trim()) {
-        onSearch(values.query);
+        onSubmit(values.query);
       } else {
         toast.error('Please enter a search term.');
       }
